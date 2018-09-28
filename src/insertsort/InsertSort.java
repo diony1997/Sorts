@@ -136,23 +136,61 @@ public class InsertSort {
         System.out.println("Tempo Bobble " + fim);
     }
 
+    public static void heapSort(int vetor[], int tamanho) {
+        criaHeap(vetor, tamanho);
+        int fim = tamanho - 1;
+        while (fim > 0) {
+            troca(vetor, 0, fim);
+            fim = fim - 1;
+            arrumaHeap(vetor, 0, fim);
+        }
+    }
+
+    public static void troca(int vetor[], int inicio, int fim) {
+        int temp = vetor[inicio];
+        vetor[inicio] = vetor[fim];
+        vetor[fim] = temp;
+    }
+
+    public static void arrumaHeap(int vetor[], int inicio, int fim) {
+        int raiz = inicio;
+        while (raiz * 2 + 1 <= fim) {
+            int filho = raiz * 2 + 1;
+            int trocar = raiz;
+            if (vetor[trocar] < vetor[filho]) {
+                trocar = filho;
+            }
+            if (filho + 1 <= fim && vetor[trocar] < vetor[filho + 1]) {
+                trocar = filho + 1;
+            }
+            if (trocar == raiz) {
+                return;
+            } else {
+                troca(vetor, raiz, trocar);
+                raiz = trocar;
+            }
+        }
+    }
+
+    public static void criaHeap(int vetor[], int tamanho) {
+        int inicio = ((tamanho - 2) / 2);
+
+        while (inicio >= 0) {
+            arrumaHeap(vetor, inicio, tamanho - 1);
+            inicio = inicio - 1;
+        }
+    }
+
     public static void main(String[] args) {
-        int n = 100000;
+        int n = 10;
         int vetor[] = new int[n];
         Random random = new Random();
         for (int i = 0; i < n; i++) {
-            vetor[i] = random.nextInt();
+            vetor[i] = random.nextInt(2);
         }
 
-        shell(vetor);
-        for (int i = 0; i < n; i++) {
-            vetor[i] = random.nextInt();
-        }
-        insert(vetor);
-        for (int i = 0; i < n; i++) {
-            vetor[i] = random.nextInt();
-        }
-        bobbleSort2(vetor);
+        heapSort(vetor, n);
+        imprimir(vetor);
 
     }
 

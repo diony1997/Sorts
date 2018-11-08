@@ -16,6 +16,32 @@ public class InsertSort {
     /**
      * @param args the command line arguments
      */
+    public static int encontrarMaior(int vetor[]){
+        int maior = 0;
+        for (int i = 0; i < vetor.length; i++) {
+            if(vetor[i]>maior){
+                maior = vetor[i];
+            }
+        }
+        return maior;
+    }
+    
+    public static void countingSort(int vetor[]){
+        int maior = encontrarMaior(vetor);
+        int vetor2[] = new int[maior+1];
+        for (int i = 0; i < vetor.length; i++) {
+            vetor2[vetor[i]]+=1;
+        }
+        int indice = 0;
+        for (int i = 0; i < vetor2.length; i++) {
+            while(vetor2[i]>0){
+                vetor[indice] = i;
+                indice++;
+                vetor2[i]--;
+            }
+        }
+                
+    }
     static void insert(int[] vetor) {
         long start = System.currentTimeMillis();
         for (int i = 1; i < vetor.length; i++) {

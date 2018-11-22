@@ -206,6 +206,47 @@ public class InsertSort {
             inicio = inicio - 1;
         }
     }
+        public static int getMaior(int vetor[]) {
+        int maior = -1000;
+        for (int i = 0; i < vetor.length; i++) {
+            if (vetor[i] > maior) {
+                maior = vetor[i];
+            }
+        }
+        return maior;
+    }
+
+    public static void bucketSort(int vetor[]){
+        int maior = getMaior(vetor);
+        ArrayList<Integer> vetor2[] = new ArrayList[vetor.length];
+        
+        for (int i = 0; i < vetor2.length; i++) {
+            vetor2[i] = new ArrayList();
+        }
+        for (int i = 0; i < vetor.length; i++) {
+            int indice = vetor[i] * vetor.length / (maior + 1);
+            inserir(vetor2[indice],vetor[i]);
+        }
+        int indice = 0;
+        for (int i = 0; i < vetor2.length; i++) {
+            while(vetor2[i].size() > 0) {
+                vetor[indice] = vetor2[i].remove(0);
+                indice++;
+            }
+        }
+    }
+    
+    public static void inserir(ArrayList<Integer> vetor2, int numero){
+        if(vetor2.isEmpty()){
+            vetor2.add(numero);
+        } else {
+            int indice = 0;
+            while (indice < vetor2.size() && numero > vetor2.get(indice) ){
+                indice++;
+            }
+            vetor2.add(indice,numero);
+        }
+    }
 
     public static void main(String[] args) {
         int n = 10;
